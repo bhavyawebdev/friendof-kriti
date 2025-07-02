@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Surprise for Kriti</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #f8c8b8;
+      --secondary: #8a2a52;
+      --light: #fff0f5;
+      --dark: #521f35;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(135deg, var(--light), var(--primary));
+      min-height: 100vh;
+      color: var(--dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      padding: 1.5rem;
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 2rem;
+      color: var(--secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      color: white;
+      background: var(--secondary);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    .popup, .form-popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 1.5rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      max-width: 95%;
+      width: 95%;
+      z-index: 100;
+    }
+
+    .popup h2, .form-popup h2 {
+      font-family: 'Pacifico', cursive;
+      color: var(--secondary);
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+    }
+
+    .popup p {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .close-btn {
+      margin-top: 1rem;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 30px;
+      background: #ff6b6b;
+      color: white;
+      cursor: pointer;
+    }
+
+    .close-btn:hover {
+      background: #ff4757;
+    }
+
+    .form-group {
+      margin-bottom: 0.8rem;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: 600;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 0.95rem;
+    }
+
+    #floatingHearts,
+    #floatingButterflies {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .floating-heart,
+    .floating-butterfly {
+      position: absolute;
+      font-size: 1.2rem;
+      animation: floatHeart 10s linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes floatHeart {
+      to {
+        transform: translateY(-100vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes floatButterfly {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    .thank-you {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--light);
+      padding: 2rem;
+      border-radius: 20px;
+      font-size: 1.2rem;
+      color: var(--secondary);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      display: none;
+      z-index: 200;
+      animation: fadeInOut 4s forwards;
+    }
+
+    @keyframes fadeInOut {
+      0% { opacity: 0; transform: translate(-50%, -60%); }
+      10% { opacity: 1; transform: translate(-50%, -50%); }
+      90% { opacity: 1; transform: translate(-50%, -50%); }
+      100% { opacity: 0; transform: translate(-50%, -60%); }
+    }
+  </style>
+</head>
+<body>
+  <div id="floatingHearts"></div>
+  <div id="floatingButterflies"></div>
+  <h1>🌸 A Special Surprise for You, Kriti! 🌸</h1>
+  <div class="buttons">
+    <button class="btn" onclick="showPopup('letterPopup')">💌 Heartfelt Letter</button>
+    <button class="btn" onclick="showPopup('surprisePopup')">🎁 Special Surprise</button>
+    <button class="btn" onclick="showPopup('memoryPopup')">📸 Favorite Memory</button>
+    <button class="btn" onclick="showPopup('complimentPopup')">💖 Sweet Compliment</button>
+    <button class="btn" onclick="showPopup('formPopup')">📝 Share Your Favorites</button>
+    <button class="btn" onclick="showPopup('secretPopup')">🔒 Secret Message</button>
+  </div>
+
+  <div class="thank-you" id="thankYouMsg">
+    💖 Thank you for your lovely responses, Kriti! 💖
+  </div>
+
+  <div class="form-popup" id="formPopup">
+    <h2>📝 Let's Save Our Favorites!</h2>
+    <form id="kritiForm">
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" name="name" required>
+      </div>
+      <div class="form-group">
+        <label>Favorite Color</label>
+        <input type="text" name="color">
+      </div>
+      <div class="form-group">
+        <label>Cute Nickname You’d Give Me</label>
+        <input type="text" name="nickname">
+      </div>
+      <div class="form-group">
+        <label>Dream Place to Go Together</label>
+        <input type="text" name="place">
+      </div>
+      <div class="form-group">
+        <label>Favorite Animal</label>
+        <input type="text" name="animal">
+      </div>
+      <div class="form-group">
+        <label>Things You Like About Me</label>
+        <textarea rows="2" name="likes"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Things You Don’t Like About Me</label>
+        <textarea rows="2" name="dislikes"></textarea>
+      </div>
+      <div class="form-group">
+        <label>A Sweet Message</label>
+        <textarea rows="2" name="message"></textarea>
+      </div>
+      <button type="submit" class="btn">Submit</button>
+    </form>
+    <button class="close-btn" onclick="closePopup('formPopup')">Close</button>
+  </div>
+
+  <script>
+    function showPopup(id) {
+      const popup = document.getElementById(id);
+      if (popup) popup.style.display = 'block';
+    }
+
+    function closePopup(id) {
+      const popup = document.getElementById(id);
+      if (popup) popup.style.display = 'none';
+    }
+
+    document.getElementById('kritiForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      closePopup('formPopup');
+      const thankYou = document.getElementById('thankYouMsg');
+      thankYou.style.display = 'block';
+      setTimeout(() => {
+        thankYou.style.display = 'none';
+      }, 4000);
+    });
+
+    setInterval(() => {
+      const heart = document.createElement('div');
+      heart.className = 'floating-heart';
+      heart.innerHTML = '💖';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = 5 + Math.random() * 5 + 's';
+      document.getElementById('floatingHearts').appendChild(heart);
+      setTimeout(() => heart.remove(), 12000);
+    }, 800);
+
+    setInterval(() => {
+      const butterfly = document.createElement('div');
+      butterfly.className = 'floating-butterfly';
+      butterfly.innerText = '🦋';
+      butterfly.style.left = Math.random() * 100 + 'vw';
+      butterfly.style.animation = `floatButterfly ${6 + Math.random() * 8}s linear forwards`;
+      document.getElementById('floatingButterflies').appendChild(butterfly);
+      setTimeout(() => butterfly.remove(), 15000);
+    }, 2000);
+  </script>
+</body>
+</html>
