@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -127,8 +128,7 @@
       font-size: 0.95rem;
     }
 
-    #floatingHearts,
-    #floatingButterflies {
+    #floatingHearts {
       position: fixed;
       top: 0;
       left: 0;
@@ -138,8 +138,7 @@
       z-index: -1;
     }
 
-    .floating-heart,
-    .floating-butterfly {
+    .floating-heart {
       position: absolute;
       font-size: 1.2rem;
       animation: floatHeart 10s linear forwards;
@@ -152,45 +151,10 @@
         opacity: 0;
       }
     }
-
-    @keyframes floatButterfly {
-      0% {
-        transform: translateY(100vh) rotate(0deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-100vh) rotate(720deg);
-        opacity: 0;
-      }
-    }
-
-    .thank-you {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: var(--light);
-      padding: 2rem;
-      border-radius: 20px;
-      font-size: 1.2rem;
-      color: var(--secondary);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      display: none;
-      z-index: 200;
-      animation: fadeInOut 4s forwards;
-    }
-
-    @keyframes fadeInOut {
-      0% { opacity: 0; transform: translate(-50%, -60%); }
-      10% { opacity: 1; transform: translate(-50%, -50%); }
-      90% { opacity: 1; transform: translate(-50%, -50%); }
-      100% { opacity: 0; transform: translate(-50%, -60%); }
-    }
   </style>
 </head>
 <body>
   <div id="floatingHearts"></div>
-  <div id="floatingButterflies"></div>
   <h1>🌸 A Special Surprise for You, Kriti! 🌸</h1>
   <div class="buttons">
     <button class="btn" onclick="showPopup('letterPopup')">💌 Heartfelt Letter</button>
@@ -201,44 +165,66 @@
     <button class="btn" onclick="showPopup('secretPopup')">🔒 Secret Message</button>
   </div>
 
-  <div class="thank-you" id="thankYouMsg">
-    💖 Thank you for your lovely responses, Kriti! 💖
+  <div class="popup" id="letterPopup">
+    <h2>💌 Heartfelt Letter</h2>
+    <p>Dear Kriti,</p>
+    <p>From the very first time we spoke, I knew there was something truly special about you. Your energy, your smile, and your warmth lit up everything around you — including my heart. I never imagined someone could make such a difference just by being themselves.</p>
+    <p>You've been my emotional anchor, my best listener, my cheerleader, and my constant ray of sunshine. Whether it’s our silly chats or serious talks, I’ve found joy and comfort in every moment we’ve shared. With you, even the smallest things become beautiful memories.</p>
+    <p>No matter how far or close we are, I promise that my bond with you will always stay strong. You are one of the most precious people in my life and I’ll always hold our friendship close. Thank you for being you, Kriti.</p>
+    <p>With all my heart,</p>
+    <p>— Bhavya</p>
+    <button class="close-btn" onclick="closePopup('letterPopup')">Close</button>
+  </div>
+
+  <div class="popup" id="surprisePopup">
+    <h2>🎁 Special Surprise</h2>
+    <p>You deserve magic, joy, and endless love. Here’s a little piece of all that wrapped in one! ✨</p>
+    <p>Thank you for being YOU. 💕</p>
+    <button class="close-btn" onclick="closePopup('surprisePopup')">Close</button>
+  </div>
+
+  <div class="popup" id="memoryPopup">
+    <h2>📸 Favorite Memory</h2>
+    <p>Whenever I met you first was my best feeling ever. My most memorable moments were when we fought the first time due to overthinking, but from then onward — thanks to God’s blessings — we never fought again.</p>
+    <p>I still remember how you appreciated my English the very first time. You also shared your Ghibli art image with me, and I recognized you correctly. We were both shy back then — how sweet that was.</p>
+    <p>And now, look at us — we are friends who truly understand each other’s capabilities and responsibilities. Isn’t that just beautiful?</p>
+    <button class="close-btn" onclick="closePopup('memoryPopup')">Close</button>
+  </div>
+
+  <div class="popup" id="complimentPopup">
+    <h2>💖 Sweet Compliment</h2>
+    <p>You’re a peach dipped in stardust and glitter. The world is lucky to have your light!</p>
+    <button class="close-btn" onclick="closePopup('complimentPopup')">Close</button>
+  </div>
+
+  <div class="popup" id="secretPopup">
+    <h2>🔒 Secret Message</h2>
+    <p>You’re more than a friend — you’re family I chose with my heart. ✨</p>
+    <button class="close-btn" onclick="closePopup('secretPopup')">Close</button>
   </div>
 
   <div class="form-popup" id="formPopup">
     <h2>📝 Let's Save Our Favorites!</h2>
-    <form id="kritiForm">
+    <form onsubmit="submitForm(event)">
       <div class="form-group">
         <label>Your Name</label>
-        <input type="text" name="name" required>
+        <input type="text" required>
       </div>
       <div class="form-group">
         <label>Favorite Color</label>
-        <input type="text" name="color">
+        <input type="text">
       </div>
       <div class="form-group">
         <label>Cute Nickname You’d Give Me</label>
-        <input type="text" name="nickname">
+        <input type="text">
       </div>
       <div class="form-group">
         <label>Dream Place to Go Together</label>
-        <input type="text" name="place">
-      </div>
-      <div class="form-group">
-        <label>Favorite Animal</label>
-        <input type="text" name="animal">
-      </div>
-      <div class="form-group">
-        <label>Things You Like About Me</label>
-        <textarea rows="2" name="likes"></textarea>
-      </div>
-      <div class="form-group">
-        <label>Things You Don’t Like About Me</label>
-        <textarea rows="2" name="dislikes"></textarea>
+        <input type="text">
       </div>
       <div class="form-group">
         <label>A Sweet Message</label>
-        <textarea rows="2" name="message"></textarea>
+        <textarea rows="2"></textarea>
       </div>
       <button type="submit" class="btn">Submit</button>
     </form>
@@ -256,15 +242,11 @@
       if (popup) popup.style.display = 'none';
     }
 
-    document.getElementById('kritiForm').addEventListener('submit', function(e) {
-      e.preventDefault();
+    function submitForm(event) {
+      event.preventDefault();
+      alert("Your answers have been saved! 💖");
       closePopup('formPopup');
-      const thankYou = document.getElementById('thankYouMsg');
-      thankYou.style.display = 'block';
-      setTimeout(() => {
-        thankYou.style.display = 'none';
-      }, 4000);
-    });
+    }
 
     setInterval(() => {
       const heart = document.createElement('div');
@@ -275,16 +257,6 @@
       document.getElementById('floatingHearts').appendChild(heart);
       setTimeout(() => heart.remove(), 12000);
     }, 800);
-
-    setInterval(() => {
-      const butterfly = document.createElement('div');
-      butterfly.className = 'floating-butterfly';
-      butterfly.innerText = '🦋';
-      butterfly.style.left = Math.random() * 100 + 'vw';
-      butterfly.style.animation = `floatButterfly ${6 + Math.random() * 8}s linear forwards`;
-      document.getElementById('floatingButterflies').appendChild(butterfly);
-      setTimeout(() => butterfly.remove(), 15000);
-    }, 2000);
   </script>
 </body>
 </html>
